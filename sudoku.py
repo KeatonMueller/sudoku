@@ -1,5 +1,8 @@
+from sys import argv
+
 from game import Grid
 from solver import Solver
+from api import api
 
 def startup():
     sizes = {
@@ -31,9 +34,12 @@ def startup():
     return grid
 
 def main():
-    grid = startup()
-    solver = Solver(grid)
-    solver.solve()
+    if len(argv) > 1 and argv[1] == 'api':
+        api.run()
+    else:
+        grid = startup()
+        solver = Solver(grid)
+        solver.solve()
 
 if __name__ == '__main__':
     main()

@@ -10,6 +10,9 @@ from solver import Solver
     rather than using a database.
 
     Summary of functionality:
+        GET /api
+            return a list of valid ids
+            
         POST /api/new?size=<size>
             start a new game with given size, return newly registered id
 
@@ -27,15 +30,23 @@ from solver import Solver
 '''
 
 app = Flask(__name__)
-grid_data = json.load(open('game_data.json'))
+grid_data = json.load(open('api/game_data.json'))
 
 def save_data():
-    with open('game_data.json', 'w') as outfile:
+    with open('api/game_data.json', 'w') as outfile:
         json.dump(grid_data, outfile)
 
 @app.route('/', methods=['GET'])
 def home():
     return 'API for Sudoku solver'
+
+@app.route('/api', methods=['GET'])
+def api_root():
+    ids = []
+    for grid_id in grid_data:
+        if grid_data[grid_id]:
+            ids.append(grid_id)
+    return str(ids)
 
 @app.route('/api/new', methods=['POST'])
 def new():
@@ -95,5 +106,5 @@ def solve(grid_id):
 
     return repr(grid)
 
-if __name__ == '__main__':
+def run():
     app.run()
