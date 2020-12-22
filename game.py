@@ -1,3 +1,5 @@
+from math import sqrt
+
 class Cell:
     '''
         A single cell in a Sudoku grid.
@@ -112,7 +114,14 @@ class Grid:
     '''
         The entire Sudoku grid.
     '''
-    def __init__(self, box_len):
+    def __init__(self, box_len=0, load_from=None):
+        # one of these must be specified
+        if box_len == 0 and load_from == None:
+            raise ValueError('must specify either box_len or load_from for Grid()')
+        # parse box_len from the repr
+        if box_len == 0:
+            box_len = int(sqrt(len(load_from.split('\n')[0])))
+
         self.box_len = box_len
         self.size = box_len * box_len
         # initialize rows, cols, boxes
@@ -130,6 +139,9 @@ class Grid:
             cell = Cell(r, c, [self.rows[r], self.cols[c], self.boxes[b]], self)
             self.cells.append(cell)
 
+        if load_from:
+            self.read_repr(load_from)
+
     def get_most_constrained(self):
         "Return the most constrained empty cell in the grid, or None if grid is full"
         # get empty cells
@@ -143,9 +155,14 @@ class Grid:
         "Return cell at given row and column index"
         return self.cells[row * self.size + col]
 
-    def read(self, filename):
+    def read_file(self, filename):
         "Populate grid with information in given file"
-        lines = open(filename, 'r').read().strip().split('\n')
+        grid_repr = open(filename, 'r').read().strip()
+        self.read_repr(grid_repr)
+
+    def read_repr(self, grid_repr):
+        "Copy grid information from repr"
+        lines = grid_repr.split('\n')
         for row, line in enumerate(lines):
             for col, val in enumerate(line):
                 try:
@@ -156,8 +173,8 @@ class Grid:
 
         for cell in self.cells:
             cell.update()
-        
-        print(f'loaded grid from {filename}:')
+
+        print(f'loaded grid:')
         print(self)
 
     def is_valid(self):
