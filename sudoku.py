@@ -27,7 +27,7 @@ def startup():
 
     choice = f'examples/{size}/{difficulty}.txt'
     grid = Grid(size)
-    grid.read(choice)
+    grid.read_file(choice)
     return grid
 
 def main():
