@@ -9,7 +9,8 @@ def startup():
     difficulties = {
         1: 'easy',
         2: 'medium',
-        3: 'hard'
+        3: 'hard',
+        4: 'harder'
     }
 
     print('Pick a board size:')
@@ -21,6 +22,7 @@ def startup():
     print('  1. Easy')
     print('  2. Medium')
     print('  3. Hard')
+    print('  4. Harder')
     difficulty = difficulties[int(input())]
 
     choice = f'examples/{size}/{difficulty}.txt'

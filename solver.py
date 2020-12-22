@@ -12,8 +12,8 @@ class Solver:
         if not self.grid.is_solved():
             self.dfs()
 
-        print(' ' * self.i, end='\r')
-        print('solved!')
+        print(' ' * len(str(self.i)), end='\r')
+        print(f'solved! in {self.i} iterations')
         print(self.grid)
 
     def dfs(self):
