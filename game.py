@@ -38,7 +38,6 @@ class Cell:
     def value(self, new_value):
         "Update this cell and all groups the cell is in when the value changes"
         self._value = new_value
-        self.update()
         self._update_groups()
 
     def _update_groups(self):
