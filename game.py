@@ -62,7 +62,7 @@ class CellGroup:
     '''
     def __init__(self):
         self.cells = []     # list of cells this group aggregates
-        self.values = set() # list of cell values used in this group
+        self.values = set() # set of cell values used in this group
 
     def add(self, cell):
         "Add a new cell to this group"
@@ -88,13 +88,8 @@ class CellGroup:
         for cell in self.cells:
             cell.update()
     
-class Row(CellGroup):
-    '''
-        Subclass of CellGroup to override __str__ method
-        for convenience when printing the grid. All other
-        functionality is the same.
-    '''
     def __str__(self):
+        "String representation as a row for this CellGroup"
         groups = []
         for col in range(0, SIZE, BOX_LEN):
             groups.append([str(cell) for cell in self.cells[col:col + BOX_LEN]])
@@ -107,7 +102,7 @@ class Grid:
     '''
     def __init__(self):
         # initialize rows, cols, boxes
-        self.rows = [Row() for _ in range(SIZE)]           # list of Row objects for each row
+        self.rows = [CellGroup() for _ in range(SIZE)]     # list of CellGroup objects for each row
         self.cols = [CellGroup() for _ in range(SIZE)]     # list of CellGroup objects for each column
         self.boxes = [CellGroup() for _ in range(SIZE)]    # list of CellGroup objects for each box
         self.cells = []                                 # list of Cell objects for each cell
@@ -153,7 +148,8 @@ class Grid:
         for group in groups:
             if not group.is_valid():
                 return False
-        return True
+        cell = self.get_most_constrained()
+        return cell == None or len(cell.possible_values) > 0
 
     def is_solved(self):
         "Check if grid is solved"
