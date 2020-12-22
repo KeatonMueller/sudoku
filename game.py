@@ -1,5 +1,3 @@
-from copy import copy
-
 BOX_LEN = 3                 # side length of each box. also determines board size
 SIZE = BOX_LEN * BOX_LEN    # size of rows, columns, boxes
 

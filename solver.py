@@ -1,14 +1,10 @@
 class Solver:
-    def __init__(self, grid=None):
+    def __init__(self, grid):
         self.grid = grid
 
     def solve(self):
         "Solve the grid and print the solution"
-        # do nothing if grid isn't set
-        if self.grid == None:
-            return
-
-        # first just search for naked singles
+        # first just solve all naked singles
         self.solve_naked_singles()
 
         # if it's still not solved, do dfs with backtracking
@@ -22,6 +18,7 @@ class Solver:
         "Perform dfs with backtracking to solve the grid"
         # select cell
         cell = self.grid.get_most_constrained()
+        # copy the possible_values since they can change during the loop
         values = set(cell.possible_values)
         # for each possible value
         for val in values:

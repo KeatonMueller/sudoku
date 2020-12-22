@@ -8,7 +8,7 @@ def startup():
         3: 'examples/hard.txt'
     }
     grid = Grid()
-    print('Pick a Sudoku to solve:')
+    print('Pick a difficulty to solve:')
     print('  1. Easy')
     print('  2. Medium')
     print('  3. Hard')
