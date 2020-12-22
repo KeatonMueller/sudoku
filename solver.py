@@ -31,7 +31,7 @@ class Solver:
             if self.grid.is_solved():
                 return True
             # recurse
-            if self.dfs():
+            if self.grid.is_valid() and self.dfs():
                 return True
             # undo the value assignment
             cell.value = 0
