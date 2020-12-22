@@ -53,6 +53,12 @@ class Cell:
             return str(self._value)
         return chr(65 + self._value - 10)
 
+    def __repr__(self):
+        "Same as __str__ but 0s are not changed to ."
+        if self._value < 10:
+            return str(self._value)
+        return chr(65 + self._value - 10)
+
 class CellGroup:
     '''
         A group of cells (either a row, column, or box).
@@ -91,12 +97,16 @@ class CellGroup:
             cell.update()
     
     def __str__(self):
-        "String representation as a row for this CellGroup"
+        "String representation (in row format) for this CellGroup"
         groups = []
         for col in range(0, self._grid.size, self._grid.box_len):
             groups.append([str(cell) for cell in self.cells[col:col + self._grid.box_len]])
         
         return ' | '.join([' '.join(group) for group in groups])
+
+    def __repr__(self):
+        "Single string of cell values without formatting"
+        return ''.join([repr(cell) for cell in self.cells])
 
 class Grid:
     '''
@@ -166,6 +176,7 @@ class Grid:
         return len(empty_cells) == 0 and self.is_valid()
 
     def __str__(self):
+        "Return board in readable format"
         grid_str = ''
         line_len = self.size * 2 - 1 + 2 * (self.box_len - 1)
 
@@ -178,3 +189,7 @@ class Grid:
 
         # strip off final box divider and newline
         return grid_str[:-(line_len + 2)]
+
+    def __repr__(self):
+        "Return board in same format as in the /examples directory"
+        return '\n'.join([repr(row) for row in self.rows])
