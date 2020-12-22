@@ -1,6 +1,7 @@
 class Solver:
     def __init__(self, grid):
         self.grid = grid
+        self.i = 0
 
     def solve(self):
         "Solve the grid and print the solution"
@@ -11,11 +12,14 @@ class Solver:
         if not self.grid.is_solved():
             self.dfs()
 
+        print(' ' * self.i, end='\r')
         print('solved!')
         print(self.grid)
 
     def dfs(self):
         "Perform dfs with backtracking to solve the grid"
+        print(self.i, end='\r')
+        self.i += 1
         # select cell
         cell = self.grid.get_most_constrained()
         # copy the possible_values since they can change during the loop
