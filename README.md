@@ -19,7 +19,7 @@ searched.
 
 ## API
 
-There's also basic little API using Flask that allows you to interface
+There's also a basic little API using Flask that allows you to interface
 with the solver. I may write a front-end at some point that uses this API.
 
 For simplicity's sake, the API reads and writes to a JSON file rather
