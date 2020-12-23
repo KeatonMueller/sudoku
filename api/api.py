@@ -1,5 +1,5 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
 from game import Grid
 from solver import Solver
@@ -36,6 +36,13 @@ def save_data():
     with open('api/game_data.json', 'w') as outfile:
         json.dump(grid_data, outfile)
 
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
+
 @app.route('/', methods=['GET'])
 def home():
     return 'API for Sudoku solver'
@@ -46,7 +53,7 @@ def api_root():
     for grid_id in grid_data:
         if grid_data[grid_id]:
             ids.append(grid_id)
-    return str(ids)
+    return jsonify(ids)
 
 @app.route('/api/new', methods=['POST'])
 def new():
