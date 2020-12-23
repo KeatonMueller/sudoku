@@ -10,7 +10,9 @@ class Solver:
 
         # if it's still not solved, do dfs with backtracking
         if not self.grid.is_solved():
-            self.dfs()
+            if not self.dfs():
+                print('no solution possible')
+                return
 
         print(' ' * len(str(self.i)), end='\r')
         print(f'solved! in {self.i} iterations')
