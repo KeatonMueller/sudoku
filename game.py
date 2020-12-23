@@ -15,8 +15,8 @@ class Cell:
         for group in self._groups:
             group.add(self)
 
-        # initialize possible_values to empty set
-        self.possible_values = set()
+        # initialize possible_values to all values
+        self.possible_values = set(range(1, self._grid.size + 1))
 
     def update(self):
         '''
