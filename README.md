@@ -29,8 +29,7 @@ You can find more details on the API in `/api/api.py`.
 
 ## How to use it
 
-This project requires you have Python 3 installed. If you'd like to run
-the API, then you need Flask installed as well.
+This project requires Python 3 and Flask.
 
 To use the solver, run `python3 sudoku.py`.
 
